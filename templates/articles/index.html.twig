@@ -8,4 +8,5 @@
         <h2>{{ article.titre }}</h2>
         <div>{{ article.contenu }}</div>
     {% endfor %}
+    {{ knp_pagination_render(articles) }}
 {% endblock %}
