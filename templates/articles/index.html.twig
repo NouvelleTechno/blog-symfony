@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Liste des articles</h1>
     {% for article in articles %}
-        <h2>{{ article.titre }}</h2>
+        <h2><a href="{{ path('actualites_article', {'slug': article.slug}) }}">{{ article.titre }}</a></h2>
         <div>{{ article.contenu }}</div>
     {% endfor %}
     {{ knp_pagination_render(articles) }}
