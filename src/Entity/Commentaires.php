@@ -34,7 +34,7 @@ class Commentaires
     /**
      * @ORM\Column(type="boolean")
      */
-    private $actif;
+    private $actif = false;
 
     /**
      * @ORM\Column(type="boolean")
