@@ -1,0 +1,71 @@
+easy_admin:
+    site_name: 'Gestion de mon blog'
+    user:
+        display_name: true
+        display_avatar: false
+    design:
+        form_theme:
+            - "@EasyAdmin/form/bootstrap_4.html.twig"
+            - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+        menu:
+            - { label: 'Articles' }
+            - { entity: 'Articles', label: 'Articles', icon: 'book' }
+            - { entity: 'Categories', label: 'Catégories', icon: 'tag' }
+            - { entity: 'MotsCles', label: 'Mots Clés', icon: 'tag' }
+            - { label: 'Utilisateurs' }
+            - { entity: 'Users', label: 'Utilisateurs', icon: 'user' }
+    formats:
+        datetime: 'd/m/Y à H:i'
+
+    entities:
+        Articles:
+            class: App\Entity\Articles
+            list:
+                fields:
+                    - id
+                    - titre
+                    - { property: 'featured_image', label: 'Image', type: 'image', base_path: '%app.path.featured_images%' }
+                    - { property: 'created_at', label: 'Créé' }
+                    - { property: 'categories', label: 'Catégories', type: 'array'}
+                    - { property: 'motsCles', label: 'Mots-Clés', type: 'array'}
+                sort: ['created_at', 'desc']
+            form:
+                fields:
+                    - titre
+                    - { property: 'contenu', type: 'fos_ckeditor', type_options: { config_name: 'main_config' }}
+                    - { property: 'imageFile', type: 'vich_image', label: 'Image' }
+                    - users
+                    - { property: 'categories', label: 'Catégories', type: 'entity', type_options: { class: 'App\Entity\Categories', multiple: true,by_reference: false, attr: { data-widget: 'select2' }}}
+                    - { property: 'motsCles', label: 'Mots Clés', type: 'entity', type_options: { class: 'App\Entity\MotsCles', multiple: true,by_reference: false, attr: { data-widget: 'select2' }}}
+        Categories:
+            class: App\Entity\Categories
+            list:
+                fields:
+                    - nom
+                    - articles
+                sort: ['nom', 'asc']
+            form:
+                fields:
+                    - nom
+        MotsCles:
+            class: App\Entity\MotsCles
+            list:
+                fields:
+                    - mot_cle
+                    - articles
+                sort: ['mot_cle', 'asc']
+            form:
+                fields:
+                    - mot_cle
+        Users:
+            class: App\Entity\Users
+            label: 'Utilisateurs'
+            list:
+                fields:
+                    - id
+                    - email
+                    - { property: 'roles', label: 'Rôles', type: json_array}
+            form:
+                fields:
+                    - email
+                    - { property: 'roles', label: 'Rôles', type: choice, type_options: {expanded: true, multiple: true, choices: {'Utilisateur':'ROLE_USER', 'Administrateur':'ROLE_ADMIN'}}}

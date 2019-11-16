@@ -1,0 +1,7 @@
+{% for nom in value %}
+    {% if loop.index is odd %}
+        <span class="badge badge-primary">{{ nom }}</span>
+    {% else %}
+        <span class="badge badge-success">{{ nom }}</span>
+    {% endif %}
+{% endfor %}
