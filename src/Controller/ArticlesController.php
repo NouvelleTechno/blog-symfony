@@ -6,9 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Articles;
 use App\Entity\Commentaires;
+use App\Form\AjoutArticleType;
 use App\Form\CommentairesType;
 use Symfony\Component\HttpFoundation\Request; // Nous avons besoin d'accéder à la requête pour obtenir le numéro de page
 use Knp\Component\Pager\PaginatorInterface; // Nous appelons le bundle KNP Paginator
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class ArticlesController
@@ -84,4 +86,42 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/article/ajouter", name="ajout_article")
+     */
+    public function ajout(Request $request)
+    {
+        $article = new Articles();
+
+        $form = $this->createForm(AjoutArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setUsers($this->getUser());
+
+			$image = $form->get('featured_image')->getData();
+			if($image){
+				$fichier = md5(uniqid()).'.'.$image->guessExtension();
+				$image->move(
+					$this->getParameter('app.path.featured_images'),
+					$fichier
+				);
+				$article->setFeaturedImage($fichier);
+			}
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('message', 'Article ajouté avec succès');
+            return $this->redirectToRoute('actualites_articles');
+        }
+
+
+        
+        return $this->render('articles/ajout.html.twig', [
+            'articleForm' => $form->createView(),
+        ]);
+    }
 }
