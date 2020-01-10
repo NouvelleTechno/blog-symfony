@@ -1,0 +1,7 @@
+PUT https://127.0.0.1:8000/api/article/editer/8
+
+{
+    "titre": "Edité par l'API",
+    "contenu": "<p>Contenu édité par l'API</p>",
+    "image": "edit.jpg"
+}

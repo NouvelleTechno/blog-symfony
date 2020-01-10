@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Articles;
+use App\Entity\Categories;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\AST\Functions\ConcatFunction;
 
 /**
  * @method Articles|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +21,36 @@ class ArticlesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Articles::class);
     }
+
+    /**
+     * @return Articles[] Returns an array of Articles objects
+    */
+    public function findAllArray() : array
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->orderBy('a.created_at', 'DESC');
+
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+    
+
+    /**
+     * @return Articles[] Returns an array of Articles objects
+    */
+    public function apiFindAll() : array
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select('a.id', 'a.titre', 'a.contenu', 'a.featured_image', 'a.created_at')
+            ->orderBy('a.created_at', 'DESC');
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
 
     // /**
     //  * @return Articles[] Returns an array of Articles objects
