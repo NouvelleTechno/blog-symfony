@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+{# On boucle sur les URLs #}
+{% for url in urls %}
+    <url>
+        {# On vérifie si le nom d'hôte (hostname) est présent dans l'url #}
+        {# Si il n'y est pas, on l'ajoute #}
+        <loc>
+            {%if url.loc|replace({hostname:''}) == url.loc%}
+                {{hostname}}{{url.loc}}
+            {%else%}
+                {{url.loc}}
+            {%endif%}
+        </loc>
+
+        {# Si il y a une date de modification #}
+        {% if url.lastmod is defined %}
+            <lastmod>{{url.lastmod}}</lastmod>
+        {% endif %}
+
+        {# Si il y a une fréquence de modification #}
+        {% if url.changefreq is defined %}
+            <changefreq>{{url.changefreq}}</changefreq>
+        {% endif %}
+
+        {# Si il y a une priorité #}
+        {% if url.priority is defined %}
+            <priority>{{url.priority}}</priority>
+        {% endif %}
+
+        {# Si il y a une image #}
+        {% if url.image is defined and url.image is not empty %}
+            <image:image>
+                <image:loc>{%if url.image.loc|replace({hostname:''}) == url.image.loc%}{{hostname}}{{url.image.loc}}{%else%}{{url.image.loc}}{%endif%}</image:loc>
+                <image:title>{{ url.image.title }}</image:title>
+            </image:image>
+        {% endif %}
+    </url>
+{% endfor %}
+</urlset>
