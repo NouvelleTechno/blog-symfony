@@ -1,0 +1,31 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+    filter_sets: # Contient la liste des filtres
+        carre: # Nom du filtre
+            quality: 75 # Qualité de l'image
+            filters: # Liste des filtres à appliquer
+                thumbnail: # Filtre "Thumbnail"
+                    size: [200, 200] # Taille de l'image de sortie
+                    mode: outbound # Découpage de l'image
+        reduc:
+            quality: 85
+            filters:
+                scale:
+                    dim: [ 250, 250 ]
+        article:
+            quality: 80
+            filters:
+                upscale:
+                    min: [800, 400]
+                thumbnail:
+                    size: [800, 400]
+                    mode: outbound
+                watermark:
+                    # path to the watermark file (prepended with "%kernel.root_dir%")
+                    image: '../public/img/watermark2.png'
+                    # size of the water mark relative to the input image
+                    size: 0.1
+                    # set the position of the watermark
+                    position: bottomright

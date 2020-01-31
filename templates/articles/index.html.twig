@@ -6,6 +6,7 @@
     <h1>Liste des articles</h1>
     {% for article in articles %}
         <h2><a href="{{ path('actualites_article', {'slug': article.slug}) }}">{{ article.titre }}</a></h2>
+        <img src="{{ vich_uploader_asset(article, 'imageFile')|imagine_filter('reduc')  }}" alt="">
         <div>{{ article.contenu }}</div>
     {% endfor %}
     {{ knp_pagination_render(articles) }}

@@ -5,6 +5,7 @@
 {% block body %}
     <h1>{{ article.titre }}</h1>
     <p>{{ article.createdAt|date }} - Commentaires : {{ commentaires|length }}</p>
+    <img src="{{ vich_uploader_asset(article, 'imageFile')|imagine_filter('article')  }}" alt="">
     <div>{{ article.contenu|raw }}</div>
 
     <p>Catégories : 
