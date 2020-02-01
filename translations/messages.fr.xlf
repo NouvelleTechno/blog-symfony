@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="2lTOrMA" resname="Article published successfully">
+        <source>Article published successfully</source>
+        <target>Article publié avec succès</target>
+      </trans-unit>
+      <trans-unit id="NV958p1" resname="Comments">
+        <source>Comments</source>
+        <target>Commentaires</target>
+      </trans-unit>
+      <trans-unit id="Nubvqtr" resname="There's no comment yet">
+        <source>There's no comment yet</source>
+        <target>Il n'y a pas encore de commentaire</target>
+      </trans-unit>
+      <trans-unit id="0iUhajp" resname="Published by">
+        <source>Published by</source>
+        <target>__Published by</target>
+      </trans-unit>
+      <trans-unit id="nYJcIfB" resname="Articles list">
+        <source>Articles list</source>
+        <target>Liste des articles</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

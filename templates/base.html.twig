@@ -6,6 +6,10 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% for locale in locales if locale != app.request.locale %}
+            <a href="{{ path('change_locale', {'locale': locale}) }}">{{ locale }}</a>         
+        {% endfor %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

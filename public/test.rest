@@ -1,7 +1,9 @@
-PUT https://127.0.0.1:8000/api/article/editer/8
+POST https://beta.writecode.fr/contact
 
 {
-    "titre": "Edité par l'API",
-    "contenu": "<p>Contenu édité par l'API</p>",
-    "image": "edit.jpg"
+    "contact[firstname]": "Coucou",
+    "contact[lastname]": "Ca va ?",
+    "contact[email]": "a@b.c",
+    "contact[message]": "Moi ça va, et toi ?",
+    "contact[contact[_token]]": "TQB3tkugxK3drWqk2fXFcRFd-9GJfHmaeK6yXTyn54g"
 }

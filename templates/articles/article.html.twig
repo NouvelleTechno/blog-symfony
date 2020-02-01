@@ -14,12 +14,12 @@
         {% endfor %}
     </p>
 
-    <h2>Commentaires</h2>
+    <h2>{% trans %}Comments{% endtrans %}</h2>
     {% for commentaire in commentaires %}
-        <p>Commentaire écrit par {{ commentaire.pseudo }} le {{ commentaire.createdAt|date }}</p>
+        <p>{% trans %}Published by{% endtrans %} {{ commentaire.pseudo }} le {{ commentaire.createdAt|date }}</p>
         <p>{{ commentaire.contenu }}</p>
     {% else %}
-        <p>Il n'y a pas encore de commentaire, publiez le premier !</p>
+        <p>{% trans %}There's no comment yet{% endtrans %}</p>
     {% endfor %}
     {{ form(form) }}
 {% endblock %}

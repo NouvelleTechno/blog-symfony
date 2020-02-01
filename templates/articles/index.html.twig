@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des articles{% endblock %}
+{% block title %}{% trans %}Articles list{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Liste des articles</h1>
+    <h1>{% trans %}Articles list{% endtrans %}</h1>
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% for article in articles %}
         <h2><a href="{{ path('actualites_article', {'slug': article.slug}) }}">{{ article.titre }}</a></h2>
         <img src="{{ vich_uploader_asset(article, 'imageFile')|imagine_filter('reduc')  }}" alt="">

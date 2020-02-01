@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.path.featured_images: /uploads/images/featured
-
+    app.locales: [en, fr]
+    
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -24,5 +25,3 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones

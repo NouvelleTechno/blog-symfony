@@ -11,6 +11,7 @@ use App\Form\CommentairesType;
 use Symfony\Component\HttpFoundation\Request; // Nous avons besoin d'accéder à la requête pour obtenir le numéro de page
 use Knp\Component\Pager\PaginatorInterface; // Nous appelons le bundle KNP Paginator
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class ArticlesController
@@ -90,7 +91,7 @@ class ArticlesController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/article/ajouter", name="ajout_article")
      */
-    public function ajout(Request $request)
+    public function ajout(Request $request,TranslatorInterface $translator)
     {
         $article = new Articles();
 
@@ -114,7 +115,9 @@ class ArticlesController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            $this->addFlash('message', 'Article ajouté avec succès');
+            $message = $translator->trans('Article published successfully');
+
+            $this->addFlash('message', $message);
             return $this->redirectToRoute('actualites_articles');
         }
 

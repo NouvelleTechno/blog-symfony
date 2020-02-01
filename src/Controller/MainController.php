@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
@@ -24,4 +25,14 @@ class MainController extends AbstractController
         // Nous générons la vue de la page des mentions légales
         return $this->render('main/mentions-legales.html.twig');
     }
+    /**
+     * @Route("/change_locale/{locale}", name="change_locale")
+     */
+    public function changeLocale($locale, Request $request)
+    {
+        //$request->setLocale($locale);
+        $request->getSession()->set('_locale', $locale);
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 }
